@@ -18,6 +18,7 @@ void loop() {
   int raw = analogRead(A1);
   float value = raw * (5.0 / 1024.0);
   int RPM = value * 800 / 1.1;
+  Serial.print("RPM: ");
   Serial.println(RPM);
   if(currentMillis - previousMillis > interval)
   {
