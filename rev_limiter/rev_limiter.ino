@@ -1,34 +1,34 @@
-#define relay 5
+#define MOSFET 5
 
 int sensorInput = analogRead(A1);
-int RPM = 0;
+int RPM = 200;
 int CutRPM = 2500;
 unsigned long previousMillis = 0UL;
 unsigned long interval = 300UL; //miliseconds
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(relay, OUTPUT);
-  digitalWrite(relay, HIGH);
+  pinMode(MOSFET, OUTPUT);
+  digitalWrite(MOSFET, HIGH);
   Serial.begin(9600);
 }
 
 void loop() {
   unsigned long currentMillis = millis();
-  int raw = analogRead(A1);
+  /*int raw = analogRead(A1);
   float value = raw * (5.0 / 1024.0);
   int RPM = value * 800 / 1.1;
   Serial.print("RPM: ");
-  Serial.println(RPM);
+  Serial.println(RPM);*/
   if(currentMillis - previousMillis > interval)
   {
 	  //The Arduino executes this code once every second
  	  //(interval = 1000 (ms) = 1 second).
-    if (RPM > CutRPM) {
-      digitalWrite(relay, LOW);
+    if (RPM >= CutRPM) {
+      digitalWrite(MOSFET, LOW);
       Serial.println("Ignition Cut: ON");
     } else {
-      digitalWrite(relay, HIGH);
+      digitalWrite(MOSFET, HIGH);
       Serial.println("Ignition Cut: OFF");
     }
     //Don't forget to update the previousMillis value
