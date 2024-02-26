@@ -16,14 +16,12 @@ float interpolateRPM(float voltage) {
       break;
     }
   }
-  
   // Perform linear interpolation
   float RPM = RPM_values[i] + ((voltage - voltage_values[i]) * (RPM_values[i + 1] - RPM_values[i])) / (voltage_values[i + 1] - voltage_values[i]);
   return RPM;
 }
 
 void setup() {
-  // put your setup code here, to run once:
   pinMode(MOSFET, OUTPUT);
   digitalWrite(MOSFET, HIGH);
   Serial.begin(115200);
@@ -38,8 +36,6 @@ void loop() {
   Serial.println(RPM);
   if(currentMillis - previousMillis > interval)
   {
-	  //The Arduino executes this code once every second
- 	  //(interval = 1000 (ms) = 1 second).
     if (RPM >= CutRPM) {
       digitalWrite(MOSFET, LOW);
       Serial.println("Ignition Cut: ON");
@@ -47,7 +43,6 @@ void loop() {
       digitalWrite(MOSFET, HIGH);
       Serial.println("Ignition Cut: OFF");
     }
-    //Don't forget to update the previousMillis value
     previousMillis = currentMillis;
   }
 }
